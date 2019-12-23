@@ -1,0 +1,8 @@
+netsh int ipv4 show interfaces
+
+Idx     Met         MTU          State                Name
+---  ----------  ----------  ------------  ---------------------------
+  1          75  4294967295  connected     Loopback Pseudo-Interface 1
+ 12        5000        1450  connected     vEthernet (nat)
+  8          10        1450  connected     vEthernet (Ethernet)
+ 21          10        1450  connected     vEthernet (cbr0)

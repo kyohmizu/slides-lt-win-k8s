@@ -1,0 +1,35 @@
+netsh int ipv4 show route
+
+Publish  Type      Met  Prefix                    Idx  Gateway/Interface Name
+-------  --------  ---  ------------------------  ---  ------------------------
+No       Manual    0    0.0.0.0/0                   8  10.240.0.1
+No       Manual    250  10.200.0.0/24              21  10.200.0.2
+No       Manual    300  10.200.0.0/24               8  10.200.0.2
+No       Manual    250  10.200.1.0/24              21  10.200.1.1
+No       Manual    300  10.200.1.0/24               8  10.200.1.1
+No       Manual    250  10.200.2.0/24              21  10.200.2.1
+No       Manual    300  10.200.2.0/24               8  10.200.2.1
+No       System    256  10.200.3.0/24              21  vEthernet (cbr0)
+No       Manual    300  10.200.3.0/24               8  vEthernet (Ethernet)
+No       System    256  10.200.3.2/32              21  vEthernet (cbr0)
+No       System    256  10.200.3.255/32            21  vEthernet (cbr0)
+No       System    256  10.200.3.255/32             8  vEthernet (Ethernet)
+No       System    256  10.240.0.0/24               8  vEthernet (Ethernet)
+No       System    256  10.240.0.4/32               8  vEthernet (Ethernet)
+No       System    256  10.240.0.255/32             8  vEthernet (Ethernet)
+No       System    256  127.0.0.0/8                 1  Loopback Pseudo-Interface 1
+No       System    256  127.0.0.1/32                1  Loopback Pseudo-Interface 1
+No       System    256  127.255.255.255/32          1  Loopback Pseudo-Interface 1
+No       Manual    1    168.63.129.16/32            8  10.240.0.1
+No       Manual    1    169.254.169.254/32          8  10.240.0.1
+No       System    256  172.29.240.0/20            12  vEthernet (nat)
+No       System    256  172.29.240.1/32            12  vEthernet (nat)
+No       System    256  172.29.255.255/32          12  vEthernet (nat)
+No       System    256  224.0.0.0/4                 1  Loopback Pseudo-Interface 1
+No       System    256  224.0.0.0/4                12  vEthernet (nat)
+No       System    256  224.0.0.0/4                 8  vEthernet (Ethernet)
+No       System    256  224.0.0.0/4                21  vEthernet (cbr0)
+No       System    256  255.255.255.255/32          1  Loopback Pseudo-Interface 1
+No       System    256  255.255.255.255/32         12  vEthernet (nat)
+No       System    256  255.255.255.255/32          8  vEthernet (Ethernet)
+No       System    256  255.255.255.255/32         21  vEthernet (cbr0)

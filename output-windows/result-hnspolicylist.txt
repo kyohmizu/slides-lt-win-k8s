@@ -1,0 +1,96 @@
+Get-HnsPolicyList
+
+ActivityId       : 9A16B637-3769-4EAA-AED5-EDA4EC83B564
+AdditionalParams : 
+Health           : @{LastErrorCode=0; LastUpdateTime=132215005883610433}
+ID               : 512D4EB7-17E8-4B91-9EE4-0E381E599701
+IsApplied        : False
+Policies         : {@{ExternalPort=31663; InternalPort=80; LocalRoutedVip=True; Protocol=6; Type=ELB}}
+References       : {/endpoints/99a255cc-39bf-411e-a218-7f5107664d6e, /endpoints/c3ffcd0a-03c6-452d-8fb1-760daa9a1bad}
+Resources        : @{AdditionalParams=; AllocationOrder=1; Allocators=System.Object[]; Health=; 
+                   ID=9A16B637-3769-4EAA-AED5-EDA4EC83B564; PortOperationTime=0; State=1; SwitchOperationTime=0; 
+                   VfpOperationTime=0}
+State            : 2
+Version          : 38654705666
+
+ActivityId       : 80DD9E72-1343-4566-90E2-BFA2D9171AD6
+AdditionalParams : 
+Health           : @{LastErrorCode=0; LastUpdateTime=132214983960555146}
+ID               : EE6FCF40-7B4A-44F3-976B-35449C73EB7E
+IsApplied        : False
+Policies         : {@{ExternalPort=53; InternalPort=53; Protocol=6; Type=ELB; VIPs=System.Object[]}}
+References       : {/endpoints/26335a76-cde9-4ce5-ae59-b6df8dcb50b0, /endpoints/215c9616-e2f1-43a9-b505-6a34c733f579}
+Resources        : @{AdditionalParams=; AllocationOrder=1; Allocators=System.Object[]; Health=; 
+                   ID=80DD9E72-1343-4566-90E2-BFA2D9171AD6; PortOperationTime=0; State=1; SwitchOperationTime=0; 
+                   VfpOperationTime=16}
+State            : 2
+Version          : 38654705666
+
+ActivityId       : 48971258-8C1C-4B19-8EB6-2071A309D0D9
+AdditionalParams : 
+Health           : @{LastErrorCode=0; LastUpdateTime=132214983960695151}
+ID               : 29AA4D74-81AA-4C8A-85B0-47FA749FE895
+IsApplied        : False
+Policies         : {@{ExternalPort=80; InternalPort=80; Protocol=6; Type=ELB; VIPs=System.Object[]}}
+References       : {/endpoints/04583b5b-30aa-4fa6-bf1e-3a476e440390}
+Resources        : @{AdditionalParams=; AllocationOrder=1; Allocators=System.Object[]; Health=; 
+                   ID=48971258-8C1C-4B19-8EB6-2071A309D0D9; PortOperationTime=0; State=1; SwitchOperationTime=0; 
+                   VfpOperationTime=0}
+State            : 2
+Version          : 38654705666
+
+ActivityId       : 153CE50B-D683-40D8-83B5-A1F7A63C08BF
+AdditionalParams : 
+Health           : @{LastErrorCode=0; LastUpdateTime=132214983961285085}
+ID               : 26D5ECF9-0C3B-4463-B47E-56A97FA0D182
+IsApplied        : False
+Policies         : {@{ExternalPort=53; InternalPort=53; Protocol=17; Type=ELB; VIPs=System.Object[]}}
+References       : {/endpoints/26335a76-cde9-4ce5-ae59-b6df8dcb50b0, /endpoints/215c9616-e2f1-43a9-b505-6a34c733f579}
+Resources        : @{AdditionalParams=; AllocationOrder=1; Allocators=System.Object[]; Health=; 
+                   ID=153CE50B-D683-40D8-83B5-A1F7A63C08BF; PortOperationTime=0; State=1; SwitchOperationTime=0; 
+                   VfpOperationTime=0}
+State            : 2
+Version          : 38654705666
+
+ActivityId       : 68E1D523-858B-4F58-B180-A8C7EED8E65F
+AdditionalParams : 
+Health           : @{LastErrorCode=0; LastUpdateTime=132214983960765086}
+ID               : 084336E5-3CF3-4A31-98E3-3D6F58A8E0F0
+IsApplied        : False
+Policies         : {@{ExternalPort=32121; InternalPort=80; LocalRoutedVip=True; Protocol=6; Type=ELB}}
+References       : {/endpoints/04583b5b-30aa-4fa6-bf1e-3a476e440390}
+Resources        : @{AdditionalParams=; AllocationOrder=1; Allocators=System.Object[]; Health=; 
+                   ID=68E1D523-858B-4F58-B180-A8C7EED8E65F; PortOperationTime=0; State=1; SwitchOperationTime=0; 
+                   VfpOperationTime=0}
+State            : 2
+Version          : 38654705666
+
+ActivityId       : DF13CF8D-2426-466C-820B-11946ACB32DD
+AdditionalParams : 
+Health           : @{LastErrorCode=0; LastUpdateTime=132214983961145214}
+ID               : 42CA129E-31E3-484F-B053-C99D384BC32E
+IsApplied        : False
+Policies         : {@{ExternalPort=443; InternalPort=6443; Protocol=6; Type=ELB; VIPs=System.Object[]}}
+References       : {/endpoints/45561726-c026-42d9-a43c-ef7ef184f10b, /endpoints/20a9a2b7-8fe1-45c1-b86e-78fcf985c724, 
+                   /endpoints/dff5bb65-7178-4c2c-a888-5688ae6b913c}
+Resources        : @{AdditionalParams=; AllocationOrder=1; Allocators=System.Object[]; Health=; 
+                   ID=DF13CF8D-2426-466C-820B-11946ACB32DD; PortOperationTime=0; State=1; SwitchOperationTime=0; 
+                   VfpOperationTime=0}
+State            : 2
+Version          : 38654705666
+
+ActivityId       : 116CC7D9-0C79-44E4-AD95-D21BD5FB77F8
+AdditionalParams : 
+Health           : @{LastErrorCode=0; LastUpdateTime=132215005883500431}
+ID               : 6D9D9B19-85D6-4FED-BC67-614F3F90C821
+IsApplied        : False
+Policies         : {@{ExternalPort=80; InternalPort=80; Protocol=6; Type=ELB; VIPs=System.Object[]}}
+References       : {/endpoints/99a255cc-39bf-411e-a218-7f5107664d6e, /endpoints/c3ffcd0a-03c6-452d-8fb1-760daa9a1bad}
+Resources        : @{AdditionalParams=; AllocationOrder=1; Allocators=System.Object[]; Health=; 
+                   ID=116CC7D9-0C79-44E4-AD95-D21BD5FB77F8; PortOperationTime=0; State=1; SwitchOperationTime=0; 
+                   VfpOperationTime=0}
+State            : 2
+Version          : 38654705666
+
+
+

@@ -1,0 +1,85 @@
+Get-HnsNetwork
+
+ActivityId             : 7BCF200A-4CBB-4C09-B5CD-5030A1F40A0C
+AdditionalParams       : 
+CurrentEndpointCount   : 0
+Extensions             : {@{Id=E7C3B2F0-F3C5-48DF-AF2B-10FED6D72E7A; IsEnabled=False; Name=Microsoft Windows Filtering 
+                         Platform}, @{Id=E9B59CFA-2BE1-4B21-828F-B6FBDBDDC017; IsEnabled=False; Name=Microsoft Azure 
+                         VFP Switch Extension}, @{Id=EA24CD6C-D17A-4348-9190-09F0D5BE83DD; IsEnabled=True; 
+                         Name=Microsoft NDIS Capture}}
+Flags                  : 0
+Health                 : @{AddressNotificationMissedCount=0; AddressNotificationSequenceNumber=0; 
+                         InterfaceNotificationMissedCount=0; InterfaceNotificationSequenceNumber=0; LastErrorCode=0; 
+                         LastUpdateTime=132214853082401077; RouteNotificationMissedCount=0; 
+                         RouteNotificationSequenceNumber=0}
+ID                     : 24207791-7A95-4D37-9064-E5D5FAD2EF1B
+IPv6                   : False
+LayeredOn              : 8EDDDACA-B0E8-45C8-9579-0936C8BA250D
+MacPools               : {@{EndMacAddress=00-15-5D-44-8F-FF; StartMacAddress=00-15-5D-44-80-00}}
+MaxConcurrentEndpoints : 0
+Name                   : nat
+NatName                : ICS2EB6CFDA-E48C-43F7-AA07-BC85F375C04D
+Policies               : {}
+Resources              : @{AdditionalParams=; AllocationOrder=2; Allocators=System.Object[]; Health=; 
+                         ID=7BCF200A-4CBB-4C09-B5CD-5030A1F40A0C; PortOperationTime=0; State=1; SwitchOperationTime=0; 
+                         VfpOperationTime=0; parentId=09C1141F-6133-4271-B903-D125ED51CE76}
+State                  : 1
+Subnets                : {@{AdditionalParams=; AddressPrefix=172.29.240.0/20; GatewayAddress=172.29.240.1; Health=; 
+                         ID=46821DB6-150E-42E2-9733-DB38E5F11597; Policies=System.Object[]; State=0}}
+TotalEndpoints         : 0
+Type                   : nat
+Version                : 38654705666
+
+ActivityId             : 4C8A47C2-32D4-4165-862D-71DCD42729A1
+AdditionalParams       : 
+CurrentEndpointCount   : 0
+Extensions             : {@{Id=E7C3B2F0-F3C5-48DF-AF2B-10FED6D72E7A; IsEnabled=False; Name=Microsoft Windows Filtering 
+                         Platform}, @{Id=E9B59CFA-2BE1-4B21-828F-B6FBDBDDC017; IsEnabled=True; Name=Microsoft Azure 
+                         VFP Switch Extension}, @{Id=EA24CD6C-D17A-4348-9190-09F0D5BE83DD; IsEnabled=True; 
+                         Name=Microsoft NDIS Capture}}
+Flags                  : 0
+Health                 : @{LastErrorCode=0; LastUpdateTime=132214900668233901}
+ID                     : E6C532C3-7F48-4A6B-8CC8-5E170227E3D7
+IPv6                   : False
+LayeredOn              : E8D94110-75C4-41DD-AF38-22D31098DE3B
+MacPools               : {@{EndMacAddress=00-15-5D-20-2F-FF; StartMacAddress=00-15-5D-20-20-00}}
+ManagementIP           : 10.240.0.4
+MaxConcurrentEndpoints : 0
+Name                   : External
+Policies               : {}
+Resources              : @{AdditionalParams=; AllocationOrder=0; Health=; ID=4C8A47C2-32D4-4165-862D-71DCD42729A1; 
+                         PortOperationTime=0; State=1; SwitchOperationTime=0; VfpOperationTime=0; 
+                         parentId=10D721B8-E8C6-44D0-840D-89163E0AABCE}
+State                  : 1
+Subnets                : {@{AdditionalParams=; AddressPrefix=192.168.255.0/30; GatewayAddress=192.168.255.1; Health=; 
+                         ID=9DC81045-A620-40BC-8152-D298E6D60AEB; ObjectType=5; Policies=System.Object[]; State=0}}
+TotalEndpoints         : 0
+Type                   : L2Bridge
+Version                : 38654705666
+
+ActivityId             : 56E43E9F-F3B3-4601-8385-58D97112B3E6
+AdditionalParams       : 
+CurrentEndpointCount   : 3
+Extensions             : {@{Id=E7C3B2F0-F3C5-48DF-AF2B-10FED6D72E7A; IsEnabled=False; Name=Microsoft Windows Filtering 
+                         Platform}, @{Id=E9B59CFA-2BE1-4B21-828F-B6FBDBDDC017; IsEnabled=True; Name=Microsoft Azure 
+                         VFP Switch Extension}, @{Id=EA24CD6C-D17A-4348-9190-09F0D5BE83DD; IsEnabled=True; 
+                         Name=Microsoft NDIS Capture}}
+Flags                  : 0
+Health                 : @{LastErrorCode=0; LastUpdateTime=132214940409020220}
+ID                     : 75A002C1-96E3-472E-B1DC-2C16EF55C148
+IPv6                   : False
+LayeredOn              : E8D94110-75C4-41DD-AF38-22D31098DE3B
+MacPools               : {@{EndMacAddress=00-15-5D-63-9F-FF; StartMacAddress=00-15-5D-63-90-00}}
+ManagementIP           : 10.240.0.4
+MaxConcurrentEndpoints : 4
+Name                   : l2bridge
+Policies               : {}
+Resources              : @{AdditionalParams=; AllocationOrder=0; Health=; ID=56E43E9F-F3B3-4601-8385-58D97112B3E6; 
+                         PortOperationTime=0; State=1; SwitchOperationTime=0; VfpOperationTime=0; 
+                         parentId=10D721B8-E8C6-44D0-840D-89163E0AABCE}
+State                  : 1
+Subnets                : {@{AdditionalParams=; AddressPrefix=10.200.3.0/24; GatewayAddress=10.200.3.1; Health=; 
+                         ID=1B6934E3-81C7-4589-95A4-BE3904B645D3; ObjectType=5; Policies=System.Object[]; State=0}}
+TotalEndpoints         : 4
+Type                   : L2Bridge
+Version                : 38654705666

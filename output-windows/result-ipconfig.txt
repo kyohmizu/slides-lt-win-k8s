@@ -1,0 +1,28 @@
+ipconfig
+
+Windows IP Configuration
+
+
+Ethernet adapter vEthernet (Ethernet):
+
+   Connection-specific DNS Suffix  . : uwckv4ml4q1ejcunrgstvrpmjg.lx.internal.cloudapp.net
+   Link-local IPv6 Address . . . . . : fe80::d409:9e0:a22b:a207%8
+   IPv4 Address. . . . . . . . . . . : 10.240.0.4
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.240.0.1
+
+Ethernet adapter vEthernet (cbr0):
+
+   Connection-specific DNS Suffix  . :
+   Link-local IPv6 Address . . . . . : fe80::65c3:742d:71b2:65f6%21
+   IPv4 Address. . . . . . . . . . . : 10.200.3.2
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . :
+
+Ethernet adapter vEthernet (nat):
+
+   Connection-specific DNS Suffix  . :
+   Link-local IPv6 Address . . . . . : fe80::f197:9990:7892:7058%12
+   IPv4 Address. . . . . . . . . . . : 172.29.240.1
+   Subnet Mask . . . . . . . . . . . : 255.255.240.0
+   Default Gateway . . . . . . . . . :

@@ -1,0 +1,9 @@
+Get-NetAdapter
+
+Name                      InterfaceDescription                    ifIndex Status       MacAddress             LinkSpeed
+----                      --------------------                    ------- ------       ----------             ---------
+Ethernet                  Microsoft Hyper-V Network Adapter             6 Up           00-0D-3A-51-D7-06        40 Gbps
+vEthernet (4e308f35e3b...                                              36 Up           00-15-5D-63-90-AA        40 Gbps
+vEthernet (Ethernet)      Hyper-V Virtual Ethernet Adapter #2           8 Up           00-0D-3A-51-D7-06        40 Gbps
+vEthernet (nat)           Hyper-V Virtual Ethernet Adapter             12 Up           00-15-5D-44-89-C5        10 Gbps
+vEthernet (080bd12556d...                                              32 Up           00-15-5D-63-9C-18        40 Gbps
