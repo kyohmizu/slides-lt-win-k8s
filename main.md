@@ -436,7 +436,7 @@ $KubeDnsSuffix ="svc.cluster.local"
 ]
 
 ---
-### 起動成功！
+### ノード追加完了！
 
 .zoom1[
 .zoom01[
