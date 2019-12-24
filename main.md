@@ -9,15 +9,24 @@ class: center, middle, blue
 ]
 
 .right-large[
+.tmp[
 - Kyohei Mizumoto(@kyohmizu)
-
-- C# Software Engineer
-
-- Interests
-    - Docker
-    - Kubernetes
-    - Golang
 ]
+
+.tmp[
+- C# Software Engineer
+]
+
+.tmp[
+- Interests
+  - Cloud Native
+  - Docker
+  - Kubernetes
+  - Golang
+  - Azure
+]
+]
+
 ---
 ### アドベントカレンダーに投稿しました
 
@@ -34,7 +43,7 @@ class: center, middle, blue
 
 - Windowsノード追加の手順
 
-- ハマったポイント
+- トラブルシュート
 
 ---
 class: center, middle, blue
@@ -197,8 +206,45 @@ https://github.com/microsoft/SDN/raw/master/Kubernetes/windows/start.ps1
 ]
 
 ---
+### スクリプトを実行
+
+.zoom1[
+```powershell
+.\start.ps1 -masterIp 10.240.0.4 -clusterCIDR 10.200.0.0/16
+```
+
+1. 必要なバイナリ、スクリプト、Dockerfile をダウンロード
+1. コンテナイメージを作成（InstallImages.ps1）
+1. HNS ネットワークを初期化
+1. kubelet を起動（start-kubelet.ps1）
+1. kube-proxy を起動（start-kubeproxy.ps1）
+1. ルーティングテーブルに追加（AddRoutes.ps1）
+
+これだけで Kubernetes に追加できるはず！
+]
+
+---
+### スクリプトを実行
+
+.zoom1[
+```powershell
+.\start.ps1 -masterIp 10.240.0.4 -clusterCIDR 10.200.0.0/16
+```
+
+1. 必要なバイナリ、スクリプト、Dockerfile をダウンロード
+1. コンテナイメージを作成（InstallImages.ps1）
+1. HNS ネットワークを初期化
+1. kubelet を起動（start-kubelet.ps1）
+1. kube-proxy を起動（start-kubeproxy.ps1）
+1. ルーティングテーブルに追加（AddRoutes.ps1）
+
+~~これだけで Kubernetes に追加できるはず！~~  
+<span style="color:red">→エラー</span>
+]
+
+---
 class: center, middle, blue
-## ハマったポイント
+## トラブルシュート
 
 ---
 ### ①ノードの podCIDR が未設定
@@ -208,11 +254,83 @@ class: center, middle, blue
 # 何も表示されない
 $ kubectl get nodes -o jsonpath='{.items[*].spec.podCIDR}'
 ```
+
+- スクリプト内で podCIDR の一覧を取得できずエラー
+- 本来はノード3台の podCIDR が取得できるはず
+- kubelet-config.yaml には podCIDR を設定しているが…  
+  .zoom01[<u><https://github.com/ivanfioravanti/kubernetes-the-hard-way-on-azure/blob/master/docs/09-bootstrapping-kubernetes-workers.md></u>]
+
+```yaml
+kind: KubeletConfiguration
+apiVersion: kubelet.config.k8s.io/v1beta1
+~
+podCIDR: 10.200.0.0/24
+```
 ]
 
 ---
-### ②自分の podCIDR を取得できない？
+### ①ノードの podCIDR が未設定
 
+.zoom1[
+- 原因は kube-controller-manager のオプション設定漏れ
+- kube-controller-manager.service を修正
+
+```diff
+[Service]
+ExecStart=/usr/local/bin/kube-controller-manager \
+  --address=0.0.0.0 \
++ --allocate-node-cidrs=true \
+  --cluster-cidr=10.200.0.0/16 \
+```
+
+- これで cluster-cidr の設定が有効になる  
+  → ノードの podCIDR も有効になる
+
+```bash
+$ kubectl get nodes -o jsonpath='{.items[*].spec.podCIDR}'
+10.200.0.0/24  10.200.1.0/24  10.200.2.0/24
+```
+]
+
+---
+### ②自ノードの podCIDR を取得できない
+
+.zoom1[
+- 自ノード (Windows Server) の podCIDR が取得できずエラー
+- そもそも podCIDR を設定した覚えがないぞ？
+- powershell モジュール (helper.psm1) を見てみる
+
+.zoom1[
+```powershell
+function Get-PodCIDR()
+{
+    return c:\k\kubectl.exe --kubeconfig=c:\k\config get nodes/$($(hostname).ToLower()) 
+    -o custom-columns=podCidr:.spec.podCIDR --no-headers
+}
+```
+]
+
+うん…？
+]
+
+---
+### ②自ノードの podCIDR を取得できない
+
+.zoom1[
+- クラスタからノード情報を取得している…？
+- まだクラスタに追加されていないのに？
+  
+.zoom1[
+```diff
+function Get-PodCIDR()
+{
+-   return c:\k\kubectl.exe --kubeconfig=c:\k\config get nodes/$($(hostname).ToLower()) 
+-   -o custom-columns=podCidr:.spec.podCIDR --no-headers
++   return "10.200.3.0/24"
+}
+```
+]
+]
 
 ---
 ### ③必要な param の不足
