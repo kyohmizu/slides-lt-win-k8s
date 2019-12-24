@@ -1,5 +1,5 @@
 class: center, middle, blue
-## Kubernetes に Windows ノードを<br/>0から追加するのは大変だった話
+## Kubernetes に Windowsノードを<br/>0から追加してみた話
 
 ---
 ### whoami
@@ -37,6 +37,25 @@ class: center, middle, blue
 <center><img src="qiita.png" width=100%></center>
 
 ---
+### モチベーション
+
+.zoom1[
+.tmp[
+- アドカレの準備大変でした
+  - ネットワークの知識不足
+  - 勢いよく減っていくAzureクレジット
+  - 手順通りに実行しても発生するエラーの数々
+  - 直前の方針転換と検証のやり直し
+- ギリギリ (3時間遅れ) で投稿！
+]
+
+　　　　　↓↓↓
+
+- 得られた知見の共有
+- もし詳しい方がいたら話を聞きたい
+]
+
+---
 ### 今日話すこと
 
 - Windows on Kubernetes
@@ -45,6 +64,8 @@ class: center, middle, blue
 
 - トラブルシュート
 
+- まとめ
+
 ---
 class: center, middle, blue
 ## Windows on Kubernetes
@@ -52,13 +73,45 @@ class: center, middle, blue
 ---
 ### Windows on Kubernetes
 
-.zoom2[
+.zoom1[
+
 - Kubernetes V1.14 でGA
-
+- クラスタにノードを追加するだけで利用可能
+- 対応されたのはワーカーノードのみ
+- 未対応の機能もある
+  - TerminationGracePeriod や Privileged Containers など
 - コンテナネットワークには CNIプラグインを使用
+  - kubenet は使用できない
+- Windowsコンテナ、Linuxコンテナの適切なスケジューリングが必要
 
-Windowsコンテナについては以前話をしました
-.zoom2[<u><https://speakerdeck.com/kyohmizu/windowskontenaru-men></u>]
+.tmp[
+- Windowsコンテナについては以前話をしました
+.zoom1[<u><https://speakerdeck.com/kyohmizu/windowskontenaru-men></u>]
+]
+]
+
+---
+class: header-margin
+### Windows on Kubernetes
+
+.half-3[
+<center><img src="https://docs.microsoft.com/en-us/virtualization/windowscontainers/container-networking/media/windowsnetworkstack-simple.png" width=92%></center>
+]
+
+.zoom0-r[
+<u>https://docs.microsoft.com/en-us/virtualization/windowscontainers/container-networking/architecture</u>
+]
+
+---
+class: header-margin
+### Windows on Kubernetes
+
+.half-3[
+<center><img src="https://docs.microsoft.com/en-us/virtualization/windowscontainers/container-networking/media/hns-management-stack.png" width=70%></center>
+]
+
+.zoom0-r[
+<u>https://docs.microsoft.com/en-us/virtualization/windowscontainers/container-networking/architecture</u>
 ]
 
 ---
@@ -67,18 +120,18 @@ Windowsコンテナについては以前話をしました
 .zoom2[
 .tmp[
 - マネージドサービスを利用する
-  - AKS の Windowsノードプール
+  - AKS の Windowsノードプール他
 ]
 
 .tmp[
 - [kubernetes.io](https://kubernetes.io/docs/setup/production-environment/windows/user-guide-windows-nodes/) のガイドに従う
-  - kubeadm + flannel を使用したノードの追加
+  - kubeadm + flannel vxlan overlay を使用したノードの追加
 ]
 
 .tmp[
 - [Microsoft SDN](https://github.com/microsoft/SDN/tree/master/Kubernetes) の Kubernetes 導入用スクリプトを使用する
-  - flannel (ドキュメントあり)
-  - wincni (ドキュメントなし)
+  - flannel vxlan overlay (ドキュメントあり)
+  - wincni l2bridge (ドキュメントなし)
 ]
 ]
 
@@ -88,18 +141,18 @@ Windowsコンテナについては以前話をしました
 .zoom2[
 .tmp[
 - マネージドサービスを利用する
-  - AKS の Windowsノードプール
+  - AKS の Windowsノードプール他
 ]
 
 .tmp[
 - [kubernetes.io](https://kubernetes.io/docs/setup/production-environment/windows/user-guide-windows-nodes/) のガイドに従う
-  - kubeadm + flannel を使用したノードの追加
+  - kubeadm + flannel vxlan overlay を使用したノードの追加
 ]
 
 .tmp[
 - [Microsoft SDN](https://github.com/microsoft/SDN/tree/master/Kubernetes) の Kubernetes 導入用スクリプトを使用する
-  - flannel (ドキュメントあり)
-  - <span style="color:red">wincni (ドキュメントなし) ←こちらを採用</span>
+  - flannel vxlan overlay (ドキュメントあり)
+  - <span style="color:red">wincni l2bridge (ドキュメントなし) ←こちらを採用</span>
 ]
 ]
 
@@ -151,11 +204,15 @@ Hyper-V 分離コンテナを使用する場合は VMサイズに注意しまし
 <u><https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/joining-windows-workers></u>
 ]
 
+- Docker をインストール
+
 ```powershell
 Install-Module -Name DockerMsftProvider -Repository PSGallery -Force
 Install-Package -Name Docker -ProviderName DockerMsftProvider
 Restart-Computer -Force
 ```
+
+- インフラ用コンテナイメージを取得
 
 ```powershell
 docker pull mcr.microsoft.com/windows/nanoserver:1809
@@ -168,6 +225,8 @@ mcr.microsoft.com/windows/nanoserver:latest
 ### Windows Server の操作
 
 .zoom1[
+- kubeconfig と Kubernetes のノード用バイナリを`C:\k`に配置
+
 ```powershell
 ls config,*exe
 
@@ -220,7 +279,7 @@ https://github.com/microsoft/SDN/raw/master/Kubernetes/windows/start.ps1
 1. kube-proxy を起動（start-kubeproxy.ps1）
 1. ルーティングテーブルに追加（AddRoutes.ps1）
 
-これだけで Kubernetes に追加できるはず！
+これだけで Kubernetes にノード追加できるはず！
 ]
 
 ---
@@ -238,8 +297,8 @@ https://github.com/microsoft/SDN/raw/master/Kubernetes/windows/start.ps1
 1. kube-proxy を起動（start-kubeproxy.ps1）
 1. ルーティングテーブルに追加（AddRoutes.ps1）
 
-~~これだけで Kubernetes に追加できるはず！~~  
-<span style="color:red">→エラー</span>
+~~これだけで Kubernetes にノード追加できるはず！~~  
+<span style="color:red">→エラー (この時点でアドカレ当日の午後)</span>
 ]
 
 ---
@@ -309,6 +368,25 @@ function Get-PodCIDR()
 }
 ```
 ]
+]
+
+---
+### ②自ノードの podCIDR を取得できない
+
+.zoom1[
+- 自ノード (Windows Server) の podCIDR が取得できずエラー
+- そもそも podCIDR を設定した覚えがないぞ？
+- powershell モジュール (helper.psm1) を見てみる
+
+.zoom1[
+```powershell
+function Get-PodCIDR()
+{
+    return c:\k\kubectl.exe --kubeconfig=c:\k\config get nodes/$($(hostname).ToLower()) 
+    -o custom-columns=podCidr:.spec.podCIDR --no-headers
+}
+```
+]
 
 うん…？
 ]
@@ -317,9 +395,15 @@ function Get-PodCIDR()
 ### ②自ノードの podCIDR を取得できない
 
 .zoom1[
+.tmp[
 - クラスタからノード情報を取得している…？
-- まだクラスタに追加されていないのに？
-  
+- まだクラスタに追加されていないので、当然取得できない
+]
+......
+.tmp[
+- とりあえず、他ノードに倣って決めた podCIDR を返すよう修正
+]
+
 .zoom1[
 ```diff
 function Get-PodCIDR()
@@ -333,12 +417,29 @@ function Get-PodCIDR()
 ]
 
 ---
-### ③必要な param の不足
+### ③ローカル変数の修正
+
+.zoom1[
+- kubelet の起動スクリプト (start-kubelet.ps1) に要修正なローカル変数
+
+```diff
+# Todo : Get these values using kubectl
+$KubeDnsSuffix ="svc.cluster.local"
++$KubeDnsServiceIp="10.32.0.10"
+-$KubeDnsServiceIp="11.0.0.10"
++$serviceCIDR="10.32.0.0/24"
+-$serviceCIDR="11.0.0.0/8"
+```
+
+- ~~Todo とは~~
+- せめて外から設定できるようにしておいてほしいなと
+]
 
 ---
-### 完了！
+### 起動成功！
 
-.zoom2[
+.zoom1[
+.zoom01[
 ```bash
 $ kubectl get no
 NAME         STATUS   ROLES    AGE    VERSION
@@ -346,15 +447,67 @@ win-server   Ready    <none>   173m   v1.16.4
 worker-0     Ready    <none>   28h    v1.15.0
 worker-1     Ready    <none>   28h    v1.15.0
 worker-2     Ready    <none>   28h    v1.15.0
+
+$ kubectl get po,svc -o wide
+NAME                                 READY   STATUS    RESTARTS   AGE   IP             NODE      
+pod/busybox                          1/1     Running   13         13h   10.200.2.4     worker-2  
+pod/nginx                            1/1     Running   0          38h   10.200.1.3     worker-1  
+pod/ubuntu                           1/1     Running   0          20h   10.200.1.4     worker-1  
+pod/win-webserver-784d66c84f-bqh9l   1/1     Running   0          10h   10.200.3.159   win-server
+pod/win-webserver-784d66c84f-ssxfr   1/1     Running   0          10h   10.200.3.39    win-server
+
+NAME                    TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE   SELECTOR
+service/kubernetes      ClusterIP   10.32.0.1    <none>        443/TCP        38h   <none>
+service/nginx           NodePort    10.32.0.52   <none>        80:32121/TCP   37h   run=nginx
+service/win-webserver   NodePort    10.32.0.65   <none>        80:31663/TCP   10h   app=win-webserver
 ```
 ]
+]
 
+---
+class: header-margin
+### 今月はここまで…
+
+<center><img src="notification.png" width=90%></center>
+
+---
+### まとめ
+
+.zoom1[
+- 要修正箇所
+  - kube-controller-manager.service の起動オプション追加
+  - helper.psm1 の`Get-PodCIDR`メソッド
+  - start-kubelet.ps1 のローカル変数
+
+|スクリプトの param名 |設定値|
+|---|---|
+|　$masterIp|　Windows Server VM のプライベートIP　|
+|　$clusterCIDR|　kube-controller-manager の `cluster-cidr`　|
+|　$podCIDR|　10.200.3.0/24 |
+|　$KubeDnsServiceIp　|　`kubectl get svc kube-dns -n kube-system`　|
+|　$serviceCIDR|　kube-controller-manager の `service-cluster-ip-range`　|
+]
 
 ---
 ### 参考
 
-.zoom2[
+.zoom1[
+.zoom01[
+Intro to Windows support in Kubernetes  
+<u><https://kubernetes.io/docs/setup/production-environment/windows/intro-windows-in-kubernetes/></u>
 
+Kubernetes on Windows  
+<u><https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/getting-started-kubernetes-windows></u>
+
+Windows container networking  
+<u><https://docs.microsoft.com/en-us/virtualization/windowscontainers/container-networking/architecture></u>
+
+KubernetesとFlannelでWindows上にPod間VXLAN Overlayネットワークを構成  
+<u><https://www.slideshare.net/anikundesu/kubernetesflannelwindowspodvxlan-overlay-152588125></u>
+
+Kubernetes Networking: Behind the scenes  
+<u><https://itnext.io/kubernetes-networking-behind-the-scenes-39a1ab1792bb></u>
+]
 ]
 
 ---
