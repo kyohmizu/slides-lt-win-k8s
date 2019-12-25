@@ -64,8 +64,6 @@ class: center, middle, blue
 
 - トラブルシュート
 
-- まとめ
-
 ---
 class: center, middle, blue
 ## Windows on Kubernetes
@@ -471,7 +469,7 @@ class: header-margin
 <center><img src="notification.png" width=90%></center>
 
 ---
-### まとめ
+### スクリプト対応まとめ
 
 .zoom1[
 - 要修正箇所
@@ -479,7 +477,7 @@ class: header-margin
   - helper.psm1 の`Get-PodCIDR`メソッド
   - start-kubelet.ps1 のローカル変数
 
-|スクリプトの param名 |設定値|
+|　param名　|設定値|
 |---|---|
 |　$masterIp|　Windows Server VM のプライベートIP　|
 |　$clusterCIDR|　kube-controller-manager の `cluster-cidr`　|
